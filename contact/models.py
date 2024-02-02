@@ -11,6 +11,8 @@ class Contact(models.Model):
     email = models.EmailField(("Email"), max_length=254, blank=True)
     created_date= models.DateTimeField(("Data Registro"),default=timezone.now)
     description = models.TextField(("Comentarios"),blank=True)
+    show=models.BooleanField(default=True)
+    
 
     def __str__(self) -> str:
         return f'{self.first_name} {self.last_name}'
