@@ -13,7 +13,7 @@ class Category(models.Model):
         return self.name
 
 class Contact(models.Model):
-    first_name = models.CharField(("Nome"), max_length=50)
+    first_name = models.CharField(("Nome"), max_length=50, help_text='help text')
     last_name = models.CharField(("Sobrenome"), max_length=50, blank=True)
     phone = models.CharField(("Telefone"), max_length=50)
     email = models.EmailField(("Email"), max_length=254, blank=True)

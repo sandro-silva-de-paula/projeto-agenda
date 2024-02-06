@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="form-wrapper">
-    <h2>CREATE CONTACT</h2>
+    <h2>CREATE A CONTACT</h2>
 
   <form 
     action=""
@@ -18,9 +18,24 @@
         <div class="form-group">
             <label for="{{field.id_for_label}}">{{field.label}}</label>
            {{field}}
+           {{field.erros}}
+
+            {% if field.help_text %}
+              <p class="help-text">{{ field.help_text }}</p>
+            {% endif %}
         </div>
     {% endfor %}
         </div>
+        {% if form.non_field_errors %}
+        <div class="form-content">
+          <div class="form-group">
+            <div class="message error">
+              {{ form.non_field_errors }}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
     <div class="form-content">
       <div class="form-group">
         <button class="btn" type="submit">Send</button>
