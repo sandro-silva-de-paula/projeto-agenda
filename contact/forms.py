@@ -2,18 +2,23 @@ from django import forms
 from django.core.exceptions import ValidationError
 from contact.models import Contact
 
+
 class ContactForm(forms.ModelForm):
     # qualquer = forms.CharField( #criando um campo fora do model
-    #     widget=forms.TextInput(
-    #         attrs={
-    #             'class': 'classe-a classe-b',
-    #             'placeholder': 'Aqui veio do init',
-    #         }
-    #     ),
+    first_name = forms.CharField(
+    widget=forms.TextInput(
+    attrs={
+                'class': 'classe-a classe-b',
+                'placeholder': 'Aqui veio do init',
+            }
+        ),
+    label='Primeiro Nome',
+    help_text='Texto de ajuda para seu usuário',)
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
-    #     help_text='Texto de ajuda para seu usuário',
-    # )
-
+ 
     class Meta:
         model = Contact
         fields = (
@@ -53,7 +58,7 @@ class ContactForm(forms.ModelForm):
 
             self.add_error('first_name', msg)
             self.add_error('last_name', msg)
-
+           
         return super().clean()
     
 
@@ -63,6 +68,7 @@ class ContactForm(forms.ModelForm):
         first_name = self.cleaned_data.get('first_name')
 
         if first_name == 'ABC':
+
             self.add_error(
                 'first_name',
                 ValidationError(
