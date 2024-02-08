@@ -5,25 +5,19 @@ from contact.models import Contact
 
 class ContactForm(forms.ModelForm):
     # qualquer = forms.CharField( #criando um campo fora do model
-    first_name = forms.CharField(
-    widget=forms.TextInput(
-    attrs={
-                'class': 'classe-a classe-b',
-                'placeholder': 'Aqui veio do init',
+    picture = forms.ImageField(
+        widget=forms.FileInput(
+            attrs={
+                'accept': 'image/*',
             }
-        ),
-    label='Primeiro Nome',
-    help_text='Texto de ajuda para seu usuário',)
-    
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
+        )
+    )
  
     class Meta:
         model = Contact
         fields = (
             'category','first_name', 'last_name', 
-              'phone','email', 'description',   
+              'phone','email', 'description','picture',  
         )
         widgets = {
             # 'first_name': forms.PasswordInput()
