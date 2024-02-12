@@ -11,25 +11,25 @@
     <p><b>Created Date:</b> {{ contact.created_date }}</p>
     <p><b>Description:</b> {{ contact.description }}</p>
     <p><b>Category:</b> {{ contact.category.name }}</p>   
-
-    {% if contact.picture %}
-    <p>
-        <img src=" {{contact.picture.url}}" alt=" {{conatact.first_name}}  {{contatct.last_name}}">
-    </p>   
-    {% endif %}
-
+    
     <div class="contact-links">
         <a class="btn btn-link" href= "{% url "contact:update" contact.id %}"> UPDATE</a>
         <form action= {% url "contact:delete" contact.id %} method="POST">
             {% csrf_token %}
             {% if confirmation == 'no' %}
-                <input type="hidden" name="confirmation" value="yes">
-                <button class= "btn btn-link btn-delete" type="submit"> CONFIRMA? </button>
+            <input type="hidden" name="confirmation" value="yes">
+            <button class= "btn btn-link btn-delete" type="submit"> CONFIRMA? </button>
             {% else %}
-                <button class= "btn btn-link btn-delete" type="submit"> DELETE </button>
+            <button class= "btn btn-link btn-delete" type="submit"> DELETE </button>
             {% endif %}
         </form>
     </div>
-</div>
     
+    {% if contact.picture %}
+        <p>
+            <img src=" {{contact.picture.url}}" alt=" {{conatact.first_name}}  {{contatct.last_name}}">
+        </p>   
+    {% endif %}
+</div>
+
 {% endblock content %}

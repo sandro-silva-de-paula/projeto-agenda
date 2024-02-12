@@ -1,10 +1,16 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from contact.models import Contact
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
+from . import models
 
 class ContactForm(forms.ModelForm):
-    # qualquer = forms.CharField( #criando um campo fora do model
+
+
+    #criando um campo fora do model
+
     picture = forms.ImageField(
         widget=forms.FileInput(
             attrs={
@@ -13,6 +19,9 @@ class ContactForm(forms.ModelForm):
         )
     )
  
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+
     class Meta:
         model = Contact
         fields = (
@@ -72,3 +81,36 @@ class ContactForm(forms.ModelForm):
             )
 
         return first_name
+    
+
+
+
+class RegisterForm(UserCreationForm):
+   
+    first_name = forms.CharField(
+        required=True,
+        min_length=3,
+    )
+    last_name = forms.CharField(
+        required=True,
+        min_length=3,
+    )
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = (
+            'first_name', 'last_name', 'email',
+            'username', 'password1', 'password2',
+        )
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+
+        if User.objects.filter(email=email).exists():
+            self.add_error(
+                'email',
+                ValidationError('Já existe este e-mail', code='invalid')
+            )
+
+        return email
