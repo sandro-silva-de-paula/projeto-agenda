@@ -2,8 +2,9 @@
     <h1 class="header-heading">
      <a href="{% url "contact:index" %}" class="header-link">
          Agenda  
-     </a>      
+     </a>   
     </h1> 
+    
     <nav class="menu">
      <ul class="menu-list">
          <li class="menu-item">
@@ -32,5 +33,6 @@
             value="{{ request.GET.q.strip}}"
             >
          </form>
-    </div>
- </header>
+        </div>
+    </header>
+    <p> user: {{user}}  </p> 

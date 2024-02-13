@@ -6,10 +6,10 @@ from django.contrib.auth.models import User
 
 from . import models
 
+
 class ContactForm(forms.ModelForm):
 
-
-    #criando um campo fora do model
+    # criando um campo fora do model
 
     picture = forms.ImageField(
         widget=forms.FileInput(
@@ -18,15 +18,15 @@ class ContactForm(forms.ModelForm):
             }
         )
     )
- 
+
     # def __init__(self, *args, **kwargs):
     #     super().__init__(*args, **kwargs)
 
     class Meta:
         model = Contact
         fields = (
-            'category','first_name', 'last_name', 
-              'phone','email', 'description','picture',  
+            'category', 'first_name', 'last_name',
+            'phone', 'email', 'description', 'picture',
         )
         widgets = {
             # 'first_name': forms.PasswordInput()
@@ -34,20 +34,19 @@ class ContactForm(forms.ModelForm):
             #     attrs={'placeholder':'Category', }
             # ),
             'first_name': forms.TextInput(
-                attrs={'placeholder':'Nome', },
-                ),
+                attrs={'placeholder': 'Nome', },
+            ),
             'last_name': forms.TextInput(
-                attrs={'placeholder':'Sobrenome', }
+                attrs={'placeholder': 'Sobrenome', }
             ),
             'email': forms.EmailInput(
-                attrs={'placeholder':'Email', },
-                ),
+                attrs={'placeholder': 'Email', },
+            ),
             'phone': forms.TextInput(
-                attrs={'placeholder':'Telefone', }
+                attrs={'placeholder': 'Telefone', }
             )
 
         }
-
 
     def clean(self):
         cleaned_data = self.cleaned_data
@@ -56,15 +55,13 @@ class ContactForm(forms.ModelForm):
 
         if first_name == last_name:
             msg = ValidationError(
-           'Primeiro nome não pode ser igual ao segundo',
-            code='invalid')
+                'Primeiro nome não pode ser igual ao segundo',
+                code='invalid')
 
             self.add_error('first_name', msg)
             self.add_error('last_name', msg)
-           
-        return super().clean()
-    
 
+        return super().clean()
 
     def clean_first_name(self):
 
@@ -81,12 +78,10 @@ class ContactForm(forms.ModelForm):
             )
 
         return first_name
-    
-
 
 
 class RegisterForm(UserCreationForm):
-   
+
     first_name = forms.CharField(
         required=True,
         min_length=3,
